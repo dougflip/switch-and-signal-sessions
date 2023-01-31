@@ -1,0 +1,13 @@
+#!/bin/bash
+
+###
+# Builds and publishes the code at the current version number.
+###
+
+set -e
+
+: "${NPM_TOKEN:?❌ Required env variable NPM_TOKEN not set - exiting.}"
+
+./scripts/build-and-verify-code
+
+npm publish --access public

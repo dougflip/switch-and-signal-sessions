@@ -1,0 +1,23 @@
+name: "Publish to NPM"
+
+on:
+  workflow_dispatch:
+
+  push:
+    branches:
+      - main
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: "Build and Verify the Code"
+        run: ./scripts/ci ./scripts/build-and-verify-code
+
+      - name: "Publish to NPM"
+        run: ./scripts/ci ./scripts/publish
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
