@@ -1,6 +1,6 @@
 {
   "name": "@dougflip/switch-and-signal-sessions",
-  "version": "1.0.0-beta.3",
+  "version": "1.0.0-beta.4",
   "description": "CLI to display Switch and Signal's sessions along with the remaining ticket count",
   "main": "dist/core.js",
   "bin": "dist/cli.js",
