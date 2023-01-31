@@ -52,3 +52,9 @@ npm run dev
 # build the code
 ./scripts/dev npm run build
 ```
+
+## Version 1.0 Checklist
+
+- [ ] Add prices
+- [ ] Integrate something like commander for better help output
+- [ ] Unit tests - maybe ava?
