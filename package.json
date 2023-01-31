@@ -1,6 +1,6 @@
 {
   "name": "@dougflip/switch-and-signal-sessions",
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0-beta.3",
   "description": "CLI to display Switch and Signal's sessions along with the remaining ticket count",
   "main": "dist/core.js",
   "bin": "dist/cli.js",
@@ -25,7 +25,6 @@
     "typescript": "^4.9.4"
   },
   "dependencies": {
-    "@dougflip/switch-and-signal-sessions": "^1.0.0-beta.1",
     "chalk": "^4.0.0",
     "node-html-parser": "^6.1.4",
     "ora": "^4.0.0"
