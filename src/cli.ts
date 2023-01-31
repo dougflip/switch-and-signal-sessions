@@ -28,8 +28,14 @@ function failedDayAsString(result: DayFailedToLoad): ConsoleString {
   ].join("\n");
 }
 
-function sessionsAsString({ time, quantity }: SessionInfo): ConsoleString {
-  return getPrinterForQuantity(quantity)(`${time}:\t${quantity} tickets left`);
+function sessionsAsString({
+  time,
+  quantity,
+  price,
+}: SessionInfo): ConsoleString {
+  return getPrinterForQuantity(quantity)(
+    `${time}:\t${quantity.toString().padStart(2, " ")} tickets remaining at $${price}`
+  );
 }
 
 function dayWithSessionsAsString({

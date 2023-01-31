@@ -7,12 +7,14 @@ export type ProductVariationDto = {
   attributes: {
     "attribute_session-time": string;
   };
+  display_price: number;
   max_qty: number;
 };
 
 export type SessionInfo = {
   time: string;
   quantity: number;
+  price: number;
 };
 
 export type DayWithSessions = {
@@ -84,6 +86,7 @@ function getSession(product: ProductVariationDto): SessionInfo {
   return {
     time: product.attributes["attribute_session-time"],
     quantity: product.max_qty,
+    price: product.display_price,
   };
 }
 
