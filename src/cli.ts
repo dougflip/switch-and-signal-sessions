@@ -8,7 +8,6 @@ import {
   DayFailedToLoad,
   DayWithSessions,
   DayResult,
-  days,
   getSessionUrl,
 } from "./core";
 import chalk from "chalk";
@@ -62,7 +61,7 @@ function dayResultAsString(result: DayResult): ConsoleString {
 
 async function main() {
   program
-    .version(process.env.npm_package_version ?? "")
+    .version('1.0.0-beta.6')
     .arguments("[days]")
     .addHelpText(
       "before",
