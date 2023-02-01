@@ -15,6 +15,10 @@ import { program } from "commander";
 
 type ConsoleString = string;
 
+type CliOptions = {
+  includePrice?: true;
+};
+
 function capitalizeFirstLetter(string: string): string {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
@@ -30,38 +34,41 @@ function failedDayAsString(result: DayFailedToLoad): ConsoleString {
   ].join("\n");
 }
 
-function sessionsAsString({
-  time,
-  quantity,
-  price,
-}: SessionInfo): ConsoleString {
-  return getPrinterForQuantity(quantity)(
-    `${time}:\t${quantity
-      .toString()
-      .padStart(2, " ")} tickets remaining at $${price}`
-  );
+function sessionsAsString(
+  { time, quantity, price }: SessionInfo,
+  { includePrice }: CliOptions
+): ConsoleString {
+  const text = `${time}:\t${chalk.bold(
+    `${quantity.toString().padStart(2, " ")} tickets`
+  )} remaining${includePrice ? ` at $${price}` : ""}`;
+
+  return getPrinterForQuantity(quantity)(text);
 }
 
-function dayWithSessionsAsString({
-  day,
-  sessions,
-}: DayWithSessions): ConsoleString {
+function dayWithSessionsAsString(
+  { day, sessions }: DayWithSessions,
+  options: CliOptions
+): ConsoleString {
   return [
     chalk.bold(capitalizeFirstLetter(day)),
-    sessions.map(sessionsAsString).join("\n"),
+    sessions.map((x) => sessionsAsString(x, options)).join("\n"),
     chalk.italic(chalk.blue(getSessionUrl(day))),
   ].join("\n");
 }
 
-function dayResultAsString(result: DayResult): ConsoleString {
+function dayResultAsString(
+  result: DayResult,
+  options: CliOptions
+): ConsoleString {
   return result.kind === "day-failed-load"
     ? failedDayAsString(result)
-    : dayWithSessionsAsString(result);
+    : dayWithSessionsAsString(result, options);
 }
 
 async function main() {
   program
     .version("1.0.0-beta.7")
+    .option("-p, --include-price", "Include the price in the output")
     .arguments("[days]")
     .addHelpText(
       "before",
@@ -86,7 +93,7 @@ async function main() {
   const spinner = ora("Fetching Sessions...");
   spinner.start();
   const results = await getMultiSessions(parseDaysOrDefault(program.args));
-  const output = results.map(dayResultAsString);
+  const output = results.map((x) => dayResultAsString(x, program.opts()));
   spinner.stop();
   console.log(output.join("\n\n"));
 }
