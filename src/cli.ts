@@ -8,8 +8,11 @@ import {
   DayFailedToLoad,
   DayWithSessions,
   DayResult,
+  days,
+  getSessionUrl,
 } from "./core";
 import chalk from "chalk";
+import { program } from "commander";
 
 type ConsoleString = string;
 
@@ -34,7 +37,9 @@ function sessionsAsString({
   price,
 }: SessionInfo): ConsoleString {
   return getPrinterForQuantity(quantity)(
-    `${time}:\t${quantity.toString().padStart(2, " ")} tickets remaining at $${price}`
+    `${time}:\t${quantity
+      .toString()
+      .padStart(2, " ")} tickets remaining at $${price}`
   );
 }
 
@@ -45,6 +50,7 @@ function dayWithSessionsAsString({
   return [
     chalk.bold(capitalizeFirstLetter(day)),
     sessions.map(sessionsAsString).join("\n"),
+    chalk.italic(chalk.blue(getSessionUrl(day))),
   ].join("\n");
 }
 
@@ -55,10 +61,32 @@ function dayResultAsString(result: DayResult): ConsoleString {
 }
 
 async function main() {
+  program
+    .version(process.env.npm_package_version ?? "")
+    .arguments("[days]")
+    .addHelpText(
+      "before",
+      [
+        `Display ${chalk.bold(
+          "Switch and Signal"
+        )} sessions with remaining ticket count and pricing.`,
+        `Without any [days] this will list all days and their sessions: ${chalk.bold(
+          "switch-and-signal-sessions"
+        )}`,
+        `Pass [days] as a space delimited list to see specific days: ${chalk.bold(
+          "switch-and-signal-sessions monday friday"
+        )}`,
+        `Days are matched using "starts with" so this is equivalent to the above: ${chalk.bold(
+          "switch-and-signal-sessions m f "
+        )}`,
+        "",
+      ].join("\n")
+    )
+    .parse();
+
   const spinner = ora("Fetching Sessions...");
   spinner.start();
-  const rawDays = process.argv.splice(2);
-  const results = await getMultiSessions(parseDaysOrDefault(rawDays));
+  const results = await getMultiSessions(parseDaysOrDefault(program.args));
   const output = results.map(dayResultAsString);
   spinner.stop();
   console.log(output.join("\n\n"));
