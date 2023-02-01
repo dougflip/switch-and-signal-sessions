@@ -61,7 +61,7 @@ function dayResultAsString(result: DayResult): ConsoleString {
 
 async function main() {
   program
-    .version("1.0.0-beta.6")
+    .version("1.0.0-beta.7")
     .arguments("[days]")
     .addHelpText(
       "before",
