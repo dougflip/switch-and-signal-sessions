@@ -7,12 +7,14 @@ export type ProductVariationDto = {
   attributes: {
     "attribute_session-time": string;
   };
+  display_price: number;
   max_qty: number;
 };
 
 export type SessionInfo = {
   time: string;
   quantity: number;
+  price: number;
 };
 
 export type DayWithSessions = {
@@ -41,12 +43,16 @@ export const days = [
 
 export type Day = (typeof days)[number];
 
+export function getSessionUrl(day: Day): string {
+  return `https://switchandsignalskatepark.com/product/${day}-open-skate-sessions/`;
+}
+
 /**
  * Fetches the HTML for a given Day instance.
  * Throws for any encountered errors.
  */
 async function fetchHtml(day: Day): Promise<string> {
-  const url = `https://switchandsignalskatepark.com/product/${day}-open-skate-sessions/`;
+  const url = getSessionUrl(day);
   try {
     const response = await fetch(url);
     if (!response.ok) {
@@ -84,6 +90,7 @@ function getSession(product: ProductVariationDto): SessionInfo {
   return {
     time: product.attributes["attribute_session-time"],
     quantity: product.max_qty,
+    price: product.display_price,
   };
 }
 
