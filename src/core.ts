@@ -44,7 +44,7 @@ export const days = [
 export type Day = (typeof days)[number];
 
 export function getSessionUrl(day: Day): string {
-  return `https://switchandsignalskatepark.com/product/${day}-open-skate-sessions/`;
+  return `https://switchandsignalskatepark.com/product/${day}-open-skate-sessionszzz/`;
 }
 
 /**
