@@ -12,6 +12,7 @@ import {
 } from "./core";
 import chalk from "chalk";
 import { program } from "commander";
+import { version } from "./version";
 
 type ConsoleString = string;
 
@@ -67,7 +68,7 @@ function dayResultAsString(
 
 async function main() {
   program
-    .version("1.0.0-beta.7")
+    .version(version)
     .option("-p, --include-price", "Include the price in the output")
     .arguments("[days]")
     .addHelpText(
@@ -75,7 +76,7 @@ async function main() {
       [
         `Display ${chalk.bold(
           "Switch and Signal"
-        )} sessions with remaining ticket count and pricing.`,
+        )} 🛹 sessions with remaining ticket count and pricing.`,
         `Without any [days] this will list all days and their sessions: ${chalk.bold(
           "switch-and-signal-sessions"
         )}`,
