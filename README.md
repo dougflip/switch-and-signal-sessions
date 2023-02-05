@@ -16,6 +16,15 @@ Install globally from npm
 npm install --global @dougflip/switch-and-signal-sessions
 ```
 
+If you use [nvm](https://github.com/nvm-sh/nvm) you can create an alias to ensure
+your shell switches to the correct version of node to run the command.
+
+For example:
+
+```sh
+alias skate="nvm exec v18.13.0 switch-and-signal-sessions"
+```
+
 ## Usage
 
 View _all_ sessions
@@ -44,6 +53,9 @@ nvm use && npm install
 
 # run the cli
 npm run dev
+
+# run the tests
+npm t
 ```
 
 #### Docker
@@ -53,8 +65,11 @@ npm run dev
 ./scripts/dev npm run build
 ```
 
-## Version 1.0 Checklist
+## Releasing
 
-- [ ] Add prices
-- [ ] Integrate something like commander for better help output
-- [ ] Unit tests - maybe ava?
+1. Create a branch
+2. Implement
+3. Run `./scripts/bump-version [version]` to set the version
+4. Open a PR
+
+On merge to `main` the new version will be release
