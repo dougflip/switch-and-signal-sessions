@@ -31,8 +31,8 @@ export function parseDays(rawDays: string[]): Day[] {
  */
 export function parseDaysOrDefault(
   rawDays: string[],
-  fallback = days
+  fallback: readonly Day[] = days
 ): readonly Day[] {
   const parsed = parseDays(rawDays);
-  return parsed.length > 0 ? parsed : days;
+  return parsed.length > 0 ? parsed : fallback;
 }

@@ -1,11 +1,12 @@
 {
   "name": "@dougflip/switch-and-signal-sessions",
-  "version": "1.0.0-beta.9",
+  "version": "1.0.0",
   "description": "CLI to display Switch and Signal's sessions along with the remaining ticket count",
   "main": "dist/core.js",
   "bin": "dist/cli.js",
   "files": [
-    "dist/**/*"
+    "dist/**/*",
+    "!dist/**/*.test.js"
   ],
   "engines": {
     "node": ">=18.0.0"
@@ -14,15 +15,20 @@
     "build": "tsc",
     "dev": "npm run build && node ./dist/cli.js",
     "format": "prettier --write src",
-    "lint": "prettier --check src"
+    "lint": "prettier --check src",
+    "test": "TZ=UTC vitest",
+    "test:ci": "CI=1 TZ=UTC vitest run --coverage"
   },
   "keywords": [],
   "author": "dougflip",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^18.11.18",
+    "@vitest/coverage-c8": "^0.28.4",
     "prettier": "^2.8.3",
-    "typescript": "^4.9.4"
+    "typescript": "^4.9.4",
+    "vitest": "^0.28.3",
+    "vitest-fetch-mock": "^0.2.1"
   },
   "dependencies": {
     "chalk": "^4.0.0",

@@ -10,8 +10,8 @@ set -e
 echo "Linting the code"
 npm run lint
 
-# echo "Running tests"
-# npm run test:ci
+echo "Running tests"
+npm run test:ci
 
 echo "Building and packaging the code"
 npm run build

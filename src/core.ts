@@ -51,7 +51,7 @@ export function getSessionUrl(day: Day): string {
  * Fetches the HTML for a given Day instance.
  * Throws for any encountered errors.
  */
-async function fetchHtml(day: Day): Promise<string> {
+export async function fetchHtml(day: Day): Promise<string> {
   const url = getSessionUrl(day);
   try {
     const response = await fetch(url);
