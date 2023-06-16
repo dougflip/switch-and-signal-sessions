@@ -38,9 +38,9 @@ View sessions for specific days
 ```sh
 switch-and-signal-sessions tuesday wednesday
 
-# the days match on "startsWith" as long as there is enough to be unique
-# the following is enough to get monday, tuesday, wednesday (needs tu as t is ambigious)
-switch-and-signal-sessions m tu w
+# the days match on case insensitive "startsWith" - which means "t" and "s" match multiple days
+# for example, this outputs both tuesday AND thursday
+switch-and-signal-sessions t
 ```
 
 ## Local Development
@@ -56,6 +56,9 @@ npm run dev
 
 # run the tests
 npm t
+
+# build the code and run the local cli with some args
+npm run build && node ./dist/cli.js m w f
 ```
 
 #### Docker

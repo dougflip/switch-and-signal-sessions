@@ -1,27 +1,38 @@
 import { Day, days } from "./core";
 
-function parseDay(maybeDay: string): Day | null {
+/**
+ * Converts an input string to `Day[]` using case insensitive startsWith.
+ * This means "t" returns ["tuesday", "thursday"] and s returns ["sunday", "saturday"].
+ */
+function parseDay(maybeDay: string): Day[] {
   if (!maybeDay) {
-    return null;
+    return [];
   }
 
   const lowerDay = maybeDay.toLowerCase();
-  const matches = days.filter((x) => x.startsWith(lowerDay));
-
-  return matches.length === 1 ? matches[0] : null;
+  return days.filter((x) => x.startsWith(lowerDay));
 }
 
 /**
- * Parses a string array to an array of Day instances.
- * This allows for 'startsWith' style strings as long as we only match a single day.
- * Entries that do not match are filtered out.
+ * Compares 2 day instances so they can be sorted.
+ */
+function compareDay(a: Day, b: Day): number {
+  return days.indexOf(a) - days.indexOf(b);
+}
+
+/**
+ * Parses a string array to a unique array of Day instances.
+ * This uses case insensitive 'startsWith'.
+ * Entries that do not match are ignored.
  *
  * ```
  * ['m', 't', 'wednesday', 'th', 's'] // => ['monday', 'wednesday', 'thursday']
  * ```
  */
 export function parseDays(rawDays: string[]): Day[] {
-  return rawDays.map(parseDay).filter((x): x is Day => !!x);
+  return [...new Set(rawDays.flatMap(parseDay))]
+    .filter((x): x is Day => !!x)
+    .sort(compareDay);
 }
 
 /**
