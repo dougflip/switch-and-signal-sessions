@@ -20,8 +20,17 @@ describe("utils", () => {
       ]);
     });
 
-    it("filters out Day strings that do not match or are ambiguous", () => {
-      expect(parseDaysOrDefault(["m", "t", "yyz", ""])).toEqual(["monday"]);
+    it("filters out Day strings that do not match", () => {
+      expect(parseDaysOrDefault(["m", "yyz", ""])).toEqual(["monday"]);
+    });
+
+    it("matches mutliple days when they start with the same letter", () => {
+      expect(parseDaysOrDefault(["m", "t", "w"])).toEqual([
+        "monday",
+        "tuesday",
+        "wednesday",
+        "thursday",
+      ]);
     });
 
     it("returns the fallback if all inputs are filtered out", () => {
