@@ -61,7 +61,7 @@ export async function fetchHtml(day: Day): Promise<string> {
     return await response.text();
   } catch (e) {
     throw new Error(
-      `Unable to download the HTML for ${day}. Check that this URL is correct: ${url}`
+      `Unable to download the HTML for ${day}. Check that this URL is correct: ${url}`,
     );
   }
 }
@@ -81,7 +81,7 @@ function parseProducts(htmlText: string): ProductVariationDto[] {
     return JSON.parse(productVariationsString || "");
   } catch (e) {
     throw new Error(
-      `Unable to parse out the products from the HTML. Maybe a CSS class name has changed?`
+      `Unable to parse out the products from the HTML. Maybe a CSS class name has changed?`,
     );
   }
 }
@@ -104,13 +104,17 @@ export async function getSessions(day: Day): Promise<SessionInfo[]> {
  * Each entry, `DayResult`, can either be a success or a failure.
  */
 export async function getMultiSessions(
-  days: readonly Day[]
+  days: readonly Day[],
 ): Promise<DayResult[]> {
   const daysHtml = await Promise.allSettled(days.map(getSessions));
   return daysHtml.map(
     (x, i): DayResult =>
       x.status === "fulfilled"
         ? { kind: "day-with-sessions", day: days[i], sessions: x.value }
-        : { kind: "day-failed-load", day: days[i], reason: x.reason.toString() }
+        : {
+            kind: "day-failed-load",
+            day: days[i],
+            reason: x.reason.toString(),
+          },
   );
 }

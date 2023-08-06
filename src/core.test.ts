@@ -69,7 +69,7 @@ describe("core", () => {
         expect(results.length).toBe(1);
         const wednesday = asDayFailedLoad(results[0]);
         expect(wednesday.reason).toMatchInlineSnapshot(
-          '"Error: Unable to download the HTML for wednesday. Check that this URL is correct: https://switchandsignalskatepark.com/product/wednesday-open-skate-sessions/"'
+          '"Error: Unable to download the HTML for wednesday. Check that this URL is correct: https://switchandsignalskatepark.com/product/wednesday-open-skate-sessions/"',
         );
       });
 
@@ -80,7 +80,7 @@ describe("core", () => {
         expect(results.length).toBe(1);
         const wednesday = asDayFailedLoad(results[0]);
         expect(wednesday.reason).toMatchInlineSnapshot(
-          '"Error: Unable to parse out the products from the HTML. Maybe a CSS class name has changed?"'
+          '"Error: Unable to parse out the products from the HTML. Maybe a CSS class name has changed?"',
         );
       });
     });

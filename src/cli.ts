@@ -37,10 +37,10 @@ function failedDayAsString(result: DayFailedToLoad): ConsoleString {
 
 function sessionsAsString(
   { time, quantity, price }: SessionInfo,
-  { includePrice }: CliOptions
+  { includePrice }: CliOptions,
 ): ConsoleString {
   const text = `${time}:\t${chalk.bold(
-    `${quantity.toString().padStart(2, " ")} tickets`
+    `${quantity.toString().padStart(2, " ")} tickets`,
   )} remaining${includePrice ? ` at $${price}` : ""}`;
 
   return getPrinterForQuantity(quantity)(text);
@@ -48,7 +48,7 @@ function sessionsAsString(
 
 function dayWithSessionsAsString(
   { day, sessions }: DayWithSessions,
-  options: CliOptions
+  options: CliOptions,
 ): ConsoleString {
   return [
     chalk.bold(capitalizeFirstLetter(day)),
@@ -59,7 +59,7 @@ function dayWithSessionsAsString(
 
 function dayResultAsString(
   result: DayResult,
-  options: CliOptions
+  options: CliOptions,
 ): ConsoleString {
   return result.kind === "day-failed-load"
     ? failedDayAsString(result)
@@ -75,19 +75,19 @@ async function main() {
       "before",
       [
         `Display ${chalk.bold(
-          "Switch and Signal"
+          "Switch and Signal",
         )} 🛹 sessions with remaining ticket count and pricing.`,
         `Without any [days] this will list all days and their sessions: ${chalk.bold(
-          "switch-and-signal-sessions"
+          "switch-and-signal-sessions",
         )}`,
         `Pass [days] as a space delimited list to see specific days: ${chalk.bold(
-          "switch-and-signal-sessions monday friday"
+          "switch-and-signal-sessions monday friday",
         )}`,
         `Days are matched using "starts with" so this is equivalent to the above: ${chalk.bold(
-          "switch-and-signal-sessions m f "
+          "switch-and-signal-sessions m f ",
         )}`,
         "",
-      ].join("\n")
+      ].join("\n"),
     )
     .parse();
 
