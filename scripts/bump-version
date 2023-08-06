@@ -4,9 +4,10 @@ set -e
 
 : "${1:?❌ Required positional arg NPM_VERSION_TYPE not set - exiting.}"
 
-echo "Updating to a new $1 version"
 npm version --git-tag-version false "$1"
 
-echo "Writing out the new version file"
 NEW_VERSION=$(npm pkg get version)
 echo "export const version = $NEW_VERSION;" > ./src/version.ts
+
+echo ""
+echo "✅ Version successfully updated to $1 - rememeber to commit!"
